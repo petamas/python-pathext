@@ -11,7 +11,7 @@ Wrapper for `shutil.which()` which returns the result as an absolute `Path` (or 
 Arguments (all of them except `name` are optional):
 - `name: str` - Executable name to look up.
 - `path: None | str | Sequence[Path]` - Directory list to look up `name` in. If set to `None`, or set to a string, then it is passed to `shutil.which()` as-is. If set to a list, concatenates the list items using `os.pathsep`, and passes the result to `shutil.which()`. Defaults to `None`. See `shutil.which()`'s documentation on exact behaviour of this argument.
-- `cwd: Optional[Path]` - If specified, then changes the current working directory to `cwd` for the duration of the `shutil.which()` call. Note that since it is changing global state (the current working directory), it is inherently not thread-safe.
+- `cwd: Optional[Path]` - If specified, then changes the current working directory to `cwd` for the duration of the `shutil.which()` call. Note that since it is changing global state (the current working directory), it is inherently not thread-safe.
 
 ### `pathext.checked_which()`
 
