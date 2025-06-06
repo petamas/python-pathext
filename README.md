@@ -17,6 +17,24 @@ Arguments (all of them except `name` are optional):
 
 Same as `pathext.which()`, except it raises `ValueError` instead of returning `None` if it cannot find the executable.
 
+## Manipulating `PATH` strings
+
+### `pathext.split_path_list()`
+
+Split `PATH` string based on `os.pathsep` and convert each component to `pathlib.Path`.
+
+Empty components will be removed, i.e. leading, trailing or duplicated separators will not cause issues.
+
+In contrast to `str.split()`, if the string is empty, the function will return an empty list.
+
+### `pathext.join_path_list()`
+
+Create `PATH` string (`os.pathsep`-separated string) from list of paths. The list is allowed to contain `Path` objects, strings and even `None`. Empty strings and `None`s will be removed before joining the list.
+
+### `pathext.deduplicate_path_list()`
+
+Create `PATH` string (`os.pathsep`-separated string) from list of paths. The list is allowed to contain `Path` objects, strings and even `None`. Empty strings and `None`s will be removed before joining the list.
+
 ## Generic utilities
 
 ### `pathext.to_path()`
