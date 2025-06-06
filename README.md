@@ -40,3 +40,11 @@ Create `PATH` string (`os.pathsep`-separated string) from list of paths. The lis
 ### `pathext.to_path()`
 
 Simple function that converts a `str` to a `Path` (just like `Path`'s constructor), but also handles `None` by returning `None`. It can be used to convert the return value of functions that return `str | None` to `Path | None`.
+
+### `pathext.temporary_directory()`
+
+Context manager similar to `tempfile.TemporaryDirectory` except it returns the created directory's name as an absolute `pathlib.Path` instead of `str`.
+
+Supports all arguments of `tempfile.TemporaryDirectory`, including `delete` introduced in Python 3.12. If `delete` is specified on Python 3.11 or older, ValueError is raised.
+
+Note that the returned path is always absolute, even if the `dir` parameter is relative. This is consistent with how `tempfile.TemporaryDirectory` works starting with Python 3.12.
