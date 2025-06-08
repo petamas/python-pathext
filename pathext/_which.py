@@ -9,6 +9,8 @@ from collections.abc import Sequence
 from pathlib import Path
 from typing import Optional
 
+from pathext import chdir_context
+
 def which(name: str, *, path: Optional[str | Sequence[Path]] = None, cwd: Optional[Path] = None) -> Optional[Path]:
     """
     Wrapper for `shutil.which()` which returns the result as an absolute `Path` (or `None` if it fails to find the executable). It also has a couple extra features, see below.
@@ -22,20 +24,16 @@ def which(name: str, *, path: Optional[str | Sequence[Path]] = None, cwd: Option
     if path is not None and not isinstance(path, str):
         path = os.pathsep.join(str(d) for d in path)
 
-    old_cwd = Path.cwd()
-    if cwd is not None:
-        os.chdir(cwd)
-
-    try:
+    with chdir_context(cwd):
         result = shutil.which(name, path=path)
-    finally:
-        if cwd is not None:
-            os.chdir(old_cwd)
 
-    if result is not None:
-        return Path(result).absolute()
-    else:
-        return None
+        if result is not None:
+            # If 'name' is present in the current working directory, shutil.which() returns '.\name'.
+            # We want an absolute path in all cases.
+            # Note: this should be under the influence of the chdir_context() call, so "." means the same as what shutil.which() thinks.
+            return Path(result).absolute()
+        else:
+            return None
 
 def checked_which(name: str, *, path: Optional[str | Sequence[Path]] = None, cwd: Optional[Path] = None) -> Path:
     """

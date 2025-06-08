@@ -48,3 +48,11 @@ Context manager similar to `tempfile.TemporaryDirectory` except it returns the c
 Supports all arguments of `tempfile.TemporaryDirectory`, including `delete` introduced in Python 3.12. If `delete` is specified on Python 3.11 or older, ValueError is raised.
 
 Note that the returned path is always absolute, even if the `dir` parameter is relative. This is consistent with how `tempfile.TemporaryDirectory` works starting with Python 3.12.
+
+### `pathext.chdir_context()`
+
+Non parallel-safe context manager to change the current working directory. If `path` is `None`, it does nothing. If `path` is not `None`, it changes the current working directory upon entering and restores the old one on exit.
+
+Unlike `contextlib.chdir()`, this context manager is NOT reentrant or reusable.
+
+See `contextlib.chdir()`'s documentation on notes about threaded and async contexts.
