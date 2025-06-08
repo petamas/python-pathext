@@ -33,9 +33,9 @@ def join_path_list(path_list: Sequence[Path | str | None]) -> str:
 
 def deduplicate_path_list(path_list: Sequence[Path | str | None]) -> list[Path]:
     """
-    Remove duplicates from path list, keeping only the first occurence. The list is allowed to contain `Path` objects, strings and even `None`. Empty strings and `None`s will be removed and strings will be converted to absolute `Path`s before deduplication.
+    Remove duplicates from path list, keeping only the first occurence. The list is allowed to contain `Path` objects, strings and even `None`. Empty strings and `None`s will be removed before deduplication, and the rest is converted to `Path`.
     """
 
     # Note that it's important to keep the relative order of directories in the PATH list, we simply want to remove
     # duplicates after the first instance.
-    return list(more_itertools.unique_everseen(Path(d).absolute() for d in path_list if d))
+    return list(more_itertools.unique_everseen(Path(d) for d in path_list if d))

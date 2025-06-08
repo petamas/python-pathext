@@ -33,7 +33,7 @@ Create `PATH` string (`os.pathsep`-separated string) from list of paths. The lis
 
 ### `pathext.deduplicate_path_list()`
 
-Create `PATH` string (`os.pathsep`-separated string) from list of paths. The list is allowed to contain `Path` objects, strings and even `None`. Empty strings and `None`s will be removed before joining the list.
+Remove duplicates from path list, keeping only the first occurence. The list is allowed to contain `Path` objects, strings and even `None`. Empty strings and `None`s will be removed before deduplication, and the rest is converted to `Path`.
 
 ## Generic utilities
 
