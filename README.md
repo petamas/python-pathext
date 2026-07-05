@@ -56,3 +56,7 @@ Non parallel-safe context manager to change the current working directory. If `p
 Unlike `contextlib.chdir()`, this context manager is NOT reentrant or reusable.
 
 See `contextlib.chdir()`'s documentation on notes about threaded and async contexts.
+
+## Licensing
+
+This library is licensed under the MIT license.
